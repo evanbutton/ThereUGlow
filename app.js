@@ -1,15 +1,34 @@
-
 const routes = {
-  "/": "<h1>Welcome to the Landing Page</h1><p>This is the main landing page of the site.</p>",
-  "/about": "<h1>About</h1><p>Testing This is the about page.</p>",
-  "/services": "<h1>Services</h1><p>Here are the services we offer.</p>",
-  "/gallery": "<h1>Gallery</h1><p>Check out our work!</p>",
-  "/contact": "<h1>Contact</h1><p>Get in touch with us.</p>",
+  "/": "home.html",
+  "/soak-2022": "soak22.html",
+  "/soak-2023": "soak23.html",
+  "/resource-library": "resources.html",
+  "/donations": "donations.html",
 };
 
 function router() {
   const path = location.hash.slice(1) || "/";
-  document.getElementById("app").innerHTML = routes[path] || "<h1>404 - Not Found</h1>";
+  const file = routes[path];
+
+  const app = document.getElementById("app");
+
+  if (file) {
+    fetch(file)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Page not found");
+        }
+        return response.text();
+      })
+      .then((html) => {
+        app.innerHTML = html;
+      })
+      .catch((err) => {
+        app.innerHTML = "<h1>404 - Page Not Found</h1>";
+      });
+  } else {
+    app.innerHTML = "<h1>404 - Page Not Found</h1>";
+  }
 }
 
 window.addEventListener("hashchange", router);
