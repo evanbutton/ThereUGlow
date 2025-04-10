@@ -1,6 +1,6 @@
 const routes = {
   "/": "home.html",
-  "/soak-2022": "soak22.html",
+  "/soak-2022": "soak22fancy.html",
   "/soak-2023": "soak23.html",
   "/resource-library": "resources.html",
   "/donations": "donations.html",
